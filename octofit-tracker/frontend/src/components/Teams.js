@@ -5,7 +5,7 @@ function Teams() {
   const [teams, setTeams] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/teams/')
+    axios.get('https://-8000.app.github.dev/api/teams/')
       .then(response => setTeams(response.data))
       .catch(error => console.error('Error fetching teams:', error));
   }, []);

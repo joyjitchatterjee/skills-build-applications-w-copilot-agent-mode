@@ -5,7 +5,7 @@ function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/leaderboard/')
+    axios.get('https://-8000.app.github.dev/api/leaderboard/')
       .then(response => setLeaderboard(response.data))
       .catch(error => console.error('Error fetching leaderboard:', error));
   }, []);

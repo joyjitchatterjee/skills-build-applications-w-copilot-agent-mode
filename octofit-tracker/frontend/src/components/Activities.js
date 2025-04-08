@@ -5,7 +5,7 @@ function Activities() {
   const [activities, setActivities] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/activities/')
+    axios.get('https://-8000.app.github.dev/api/activities/')
       .then(response => setActivities(response.data))
       .catch(error => console.error('Error fetching activities:', error));
   }, []);

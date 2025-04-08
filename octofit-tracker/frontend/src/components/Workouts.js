@@ -5,7 +5,7 @@ function Workouts() {
   const [workouts, setWorkouts] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/workouts/')
+    axios.get('https://-8000.app.github.dev/api/workouts/')
       .then(response => setWorkouts(response.data))
       .catch(error => console.error('Error fetching workouts:', error));
   }, []);
