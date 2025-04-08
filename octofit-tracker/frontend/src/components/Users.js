@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function Users() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/users/')
+      .then(response => setUsers(response.data))
+      .catch(error => console.error('Error fetching users:', error));
+  }, []);
+
   return (
     <div className="card">
       <div className="card-header">
@@ -16,16 +25,13 @@ function Users() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>John Doe</td>
-              <td>john.doe@example.com</td>
-              <td>Admin</td>
-            </tr>
-            <tr>
-              <td>Jane Smith</td>
-              <td>jane.smith@example.com</td>
-              <td>User</td>
-            </tr>
+            {users.map(user => (
+              <tr key={user.id}>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.role}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

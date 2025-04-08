@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function Teams() {
+  const [teams, setTeams] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/teams/')
+      .then(response => setTeams(response.data))
+      .catch(error => console.error('Error fetching teams:', error));
+  }, []);
+
   return (
     <div className="card">
       <div className="card-header">
@@ -16,16 +25,13 @@ function Teams() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Blue Team</td>
-              <td>5</td>
-              <td>1200</td>
-            </tr>
-            <tr>
-              <td>Red Team</td>
-              <td>4</td>
-              <td>1100</td>
-            </tr>
+            {teams.map(team => (
+              <tr key={team.id}>
+                <td>{team.name}</td>
+                <td>{team.members}</td>
+                <td>{team.points}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

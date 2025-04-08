@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function Workouts() {
+  const [workouts, setWorkouts] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/workouts/')
+      .then(response => setWorkouts(response.data))
+      .catch(error => console.error('Error fetching workouts:', error));
+  }, []);
+
   return (
     <div className="card">
       <div className="card-header">
@@ -16,16 +25,13 @@ function Workouts() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Yoga</td>
-              <td>Relaxing yoga session</td>
-              <td>60 mins</td>
-            </tr>
-            <tr>
-              <td>HIIT</td>
-              <td>High-intensity interval training</td>
-              <td>30 mins</td>
-            </tr>
+            {workouts.map(workout => (
+              <tr key={workout.id}>
+                <td>{workout.name}</td>
+                <td>{workout.description}</td>
+                <td>{workout.duration}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

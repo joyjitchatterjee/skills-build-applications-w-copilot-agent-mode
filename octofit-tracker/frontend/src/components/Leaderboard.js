@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function Leaderboard() {
+  const [leaderboard, setLeaderboard] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/leaderboard/')
+      .then(response => setLeaderboard(response.data))
+      .catch(error => console.error('Error fetching leaderboard:', error));
+  }, []);
+
   return (
     <div className="card">
       <div className="card-header">
@@ -16,16 +25,13 @@ function Leaderboard() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>John Doe</td>
-              <td>1500</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Jane Smith</td>
-              <td>1400</td>
-            </tr>
+            {leaderboard.map(entry => (
+              <tr key={entry.id}>
+                <td>{entry.rank}</td>
+                <td>{entry.name}</td>
+                <td>{entry.score}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
